@@ -1,18 +1,22 @@
 NAME = fractol
 
-SRC = srcs/f_common.c\
+SRC = srcs/ft_common.c\
 	  srcs/fractol.c\
-	  srcs/init.c\
-	  srcs/math_utils.c\
-	  srcs/render.c\
-	  srcs/handlers.c\
+	  srcs/common_utils.c\
+	  srcs/ft_atod.c\
+	  srcs/f_julia.c\
+	  srcs/f_mandelbrot.c\
+	  srcs/f_burning_ship.c\
+	  srcs/f_j_handlers.c\
+	  srcs/f_m_handlers.c\
+	  srcs/f_bs_handlers.c
 
 OBJ = ${SRC:.c=.o}
 
 LIBFT_PATH	= ./incs/libft
 LIBFT_NAME	= libft.a
 
-MINILIBX_PATH	= ./incs/minilbx
+MINILIBX_PATH	= ../../minilbx
 MINILIBX_NAME	= libmlx.a
 #MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 X11_FLAGS = -L/usr/X11/include/../lib -lXext -lX11
@@ -20,10 +24,11 @@ X11_FLAGS = -L/usr/X11/include/../lib -lXext -lX11
 DEPS = incs/fractol.h
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Werror
 
+#${CFLAGS}
 .c.o:
-	${CC} ${CFLAGS} -Imlx -c $< -o ${<:.c=.o}
+	${CC} -Imlx -c $< -o ${<:.c=.o}
 
 all: ${LIBFT_PATH}/${LIBFT_NAME} ${MINILIBX_PATH}/${MINILIBX_NAME} ${DEPS} ${NAME}
 

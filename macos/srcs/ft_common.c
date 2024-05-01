@@ -22,3 +22,26 @@ t_complex square_complex(t_complex z)
     result.y = 2 * z.x * z.y;
     return (result);
 }
+
+t_complex abs_square_complex(t_complex z)
+{
+    t_complex   result;
+
+    result.x = (z.x * z.x) - (z.y * z.y);
+    result.y = 2 * fabsl(z.x * z.y);
+    return (result);
+}
+
+char	*ft_tolower_char(char *c)
+{
+    int i;
+
+    i = 0;
+    while (c[i])
+    {
+	if (c[i] >= 65 && c[i] <= 90)
+		c[i] += 32;
+	i++;
+    }
+	return (c);
+}

@@ -1,14 +1,15 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <stdio.h> //TODO debug
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+# include <math.h>
+# include <limits.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "libft/libft.h"
-# include "minilbx/mlx.h"
+# include "../../../minilbx/mlx.h"
 
 
 #define WIDTH 800 //TODO
@@ -53,19 +54,49 @@ typedef struct s_fractal
 	int	iterations;
 	long double shift_x;
 	long double shift_y;
+	long double zoom;
+	long double	julia_x;
+	long double	julia_y;
 }   t_fractal;
 
-void	ft_exit_error(void);
-long double scale(long double unscaled, long double new_min, long double new_max, long double old_max);
-void    handle_pixel(int x, int y, t_fractal *fractal);
-void    fractal_render(t_fractal *fractal);
-t_complex sum_complex(t_complex z1, t_complex z2);
-t_complex square_complex(t_complex z);
-void data_init(t_fractal *fractal);
-void    fractal_init(t_fractal *fractal);
-void events_init(t_fractal *fractal);
-int key_handle(int keysim, t_fractal *fractal);
-int    close_handle(t_fractal *fractal);
-int mouse_handle(int button, int x, int y, t_fractal *fractal);
+void    	ft_mandelbrot(void);
+void    	m_pixel(int x, int y, t_fractal *fractal);
+void    	m_render(t_fractal *fractal);
+void		m_events_init(t_fractal *fractal);
+int 		m_key_handle(int keysim, t_fractal *fractal);
+int 		m_mouse_handle(int button, int x, int y, t_fractal *fractal);
+
+void    	ft_julia(char *real, char *i);
+void    	j_pixel(int x, int y, t_fractal *fractal);
+void    	j_render(t_fractal *fractal);
+void 		j_events_init(t_fractal *fractal);
+int 		j_key_handle(int keysim, t_fractal *fractal);
+int 		j_mouse_handle(int button, int x, int y, t_fractal *fractal);
+int    		j_mouse_move_handle(int x, int y, t_fractal *fractal);
+
+void    	ft_burning_ship(void);
+void    	bs_pixel(int x, int y, t_fractal *fractal);
+void    	bs_render(t_fractal *fractal);
+void 		bs_events_init(t_fractal *fractal);
+int			bs_key_handle(int keysim, t_fractal *fractal);
+int 		bs_mouse_handle(int button, int x, int y, t_fractal *fractal);
+
+void		ft_exit_error(void);
+void 		data_init(t_fractal *fractal);
+void    	fractal_init(t_fractal *fractal);
+int    		close_handle(t_fractal *fractal);
+void    	pixel_draw(int x, int y, t_img *img, int color);
+
+long double	scale(long double unscaled, long double new_min, long double new_max, long double old_max);
+t_complex 	sum_complex(t_complex z1, t_complex z2);
+t_complex 	square_complex(t_complex z);
+t_complex 	abs_square_complex(t_complex z);
+
+int			isspace_check(const char a);
+long double	ft_atod(char *s);
+int			ft_sign(char *s);
+char 		*before_dot_ch(char *s);
+char 		*after_dot_ch(char *s);
+char		*ft_tolower_char(char *c);
 
 #endif
