@@ -1,12 +1,12 @@
 #include "../incs/fractol.h"
 
-void    ft_julia(char *real, char *i)
+void    ft_julia(char **args)
 {
     t_fractal   fractal;
     
     fractal.name = "julia";
-    fractal.julia_x = ft_atod(real);
-	fractal.julia_y = ft_atod(i);
+    fractal.julia_x = ft_atod(args[2]);
+	fractal.julia_y = ft_atod(args[3]);
     fractal_init(&fractal);
     j_events_init(&fractal);
     data_init(&fractal);
@@ -20,10 +20,10 @@ void    j_render(t_fractal *fractal)
     int y;
 
     y = 1;
-    while (y++ < HEIGHT)
+    while (y++ < SCALE)
     {
         x = 1;
-        while (x++ < WIDTH)
+        while (x++ < SCALE)
             j_pixel(x, y, fractal);
     }
     mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
@@ -37,8 +37,8 @@ void    j_pixel(int x, int y, t_fractal *fractal)
     int color;
 
     i = 0;
-    z.x = (scale(x, -2, 2, WIDTH) * fractal->zoom) + fractal->shift_x;
-    z.y = (scale(y, 2, -2, HEIGHT) * fractal->zoom) + fractal->shift_y;
+    z.x = (scale(x, -2, 2, SCALE) * fractal->zoom) + fractal->shift_x;
+    z.y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
     c.x = (fractal->julia_x);
     c.y = (fractal->julia_y);
     while (i < fractal->iterations)

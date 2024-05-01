@@ -44,8 +44,8 @@ int j_mouse_handle(int button, int x, int y, t_fractal *fractal)
 
 int    j_mouse_move_handle(int x, int y, t_fractal *fractal)
 { 
-    fractal->julia_x = (scale(x, -2, +2, WIDTH) * fractal->zoom) + fractal->shift_x;
-    fractal->julia_y = (scale(y, 2, -2, HEIGHT) * fractal->zoom) + fractal->shift_y;
+    fractal->julia_x = (scale(x, -2, +2, SCALE) * fractal->zoom) + fractal->shift_x;
+    fractal->julia_y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
     j_render(fractal);
     return (0);
 }

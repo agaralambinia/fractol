@@ -1,6 +1,6 @@
 #include "../incs/fractol.h"
 
-void    ft_burning_ship(void)
+void    ft_burning_ship(char **args)
 {
     t_fractal   fractal;
     
@@ -18,10 +18,10 @@ void    bs_render(t_fractal *fractal)
     int y;
 
     y = 1;
-    while (y++ < HEIGHT)
+    while (y++ < SCALE)
     {
         x = 1;
-        while (x++ < WIDTH)
+        while (x++ < SCALE)
             bs_pixel(x, y, fractal);
     }
     mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
@@ -35,8 +35,8 @@ void    bs_pixel(int x, int y, t_fractal *fractal)
     int color;
 
     i = 0;
-    z.x = (scale(x, -2, 2, WIDTH) * fractal->zoom) + fractal->shift_x;
-    z.y = (scale(y, 2, -2, HEIGHT) * fractal->zoom) + fractal->shift_y;
+    z.x = (scale(x, -2, 2, SCALE) * fractal->zoom) + fractal->shift_x;
+    z.y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
     c.x = z.x;
     c.y = z.y;
     while (i < fractal->iterations)

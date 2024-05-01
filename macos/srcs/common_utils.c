@@ -23,14 +23,14 @@ void    fractal_init(t_fractal *fractal)
     fractal->mlx_connection = mlx_init();
     if (fractal->mlx_connection == NULL)
         ft_exit_error();
-    fractal->mlx_window = mlx_new_window(fractal->mlx_connection, WIDTH, HEIGHT, fractal->name);
+    fractal->mlx_window = mlx_new_window(fractal->mlx_connection, SCALE, SCALE, fractal->name);
     if (fractal->mlx_window == NULL)
     {
         mlx_destroy_display(fractal->mlx_connection);
         free(fractal->mlx_connection);
         ft_exit_error();
     }
-    fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
+    fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, SCALE, SCALE);
     if (fractal->img.img_ptr == NULL)
     {
         mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
@@ -47,10 +47,4 @@ void    pixel_draw(int x, int y, t_img *img, int color)
 
     offset = (y * img->line_len) + (x * (img->bpp / 8));
     *(unsigned int *)(img->pixels_ptr + offset) = color;
-}
-
-void	ft_exit_error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(EXIT_FAILURE);
 }

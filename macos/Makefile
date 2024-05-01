@@ -9,7 +9,8 @@ SRC = srcs/ft_common.c\
 	  srcs/f_burning_ship.c\
 	  srcs/f_j_handlers.c\
 	  srcs/f_m_handlers.c\
-	  srcs/f_bs_handlers.c
+	  srcs/f_bs_handlers.c\
+	  srcs/output.c
 
 OBJ = ${SRC:.c=.o}
 

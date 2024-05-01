@@ -12,8 +12,7 @@
 # include "../../../minilbx/mlx.h"
 
 
-#define WIDTH 800 //TODO
-#define HEIGHT 800
+#define SCALE 800 //TODO
 
 #define BLACK       0x000000
 #define WHITE       0xFFFFFF
@@ -46,27 +45,28 @@ typedef struct	s_img
 
 typedef struct s_fractal
 {
-    char    *name;
-    void    *mlx_connection;
-    void    *mlx_window;
-	t_img	img;
-	long double hipotenuse;
-	int	iterations;
-	long double shift_x;
-	long double shift_y;
-	long double zoom;
-	long double	julia_x;
-	long double	julia_y;
+    char    		*name;
+    void    		*mlx_connection;
+    void    		*mlx_window;
+	t_img			img;
+	long double 	hipotenuse;
+	int				iterations;
+	long double 	shift_x;
+	long double 	shift_y;
+	long double 	zoom;
+	long double		julia_x;
+	long double		julia_y;
+	unsigned int	scale;
 }   t_fractal;
 
-void    	ft_mandelbrot(void);
+void    	ft_mandelbrot(char **args);
 void    	m_pixel(int x, int y, t_fractal *fractal);
 void    	m_render(t_fractal *fractal);
 void		m_events_init(t_fractal *fractal);
 int 		m_key_handle(int keysim, t_fractal *fractal);
 int 		m_mouse_handle(int button, int x, int y, t_fractal *fractal);
 
-void    	ft_julia(char *real, char *i);
+void    	ft_julia(char **args);
 void    	j_pixel(int x, int y, t_fractal *fractal);
 void    	j_render(t_fractal *fractal);
 void 		j_events_init(t_fractal *fractal);
@@ -74,7 +74,7 @@ int 		j_key_handle(int keysim, t_fractal *fractal);
 int 		j_mouse_handle(int button, int x, int y, t_fractal *fractal);
 int    		j_mouse_move_handle(int x, int y, t_fractal *fractal);
 
-void    	ft_burning_ship(void);
+void    	ft_burning_ship(char **args);
 void    	bs_pixel(int x, int y, t_fractal *fractal);
 void    	bs_render(t_fractal *fractal);
 void 		bs_events_init(t_fractal *fractal);
@@ -82,6 +82,7 @@ int			bs_key_handle(int keysim, t_fractal *fractal);
 int 		bs_mouse_handle(int button, int x, int y, t_fractal *fractal);
 
 void		ft_exit_error(void);
+void		ft_exit_help(void);
 void 		data_init(t_fractal *fractal);
 void    	fractal_init(t_fractal *fractal);
 int    		close_handle(t_fractal *fractal);
