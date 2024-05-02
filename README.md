@@ -13,3 +13,4 @@ https://www.xquartz.org/
 
 - This version includes all 42 mandatory headers and is norminetted.
 - Uses mlx lib preinstalled on local PCs.
+- Is written without X11 lib.
