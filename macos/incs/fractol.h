@@ -78,12 +78,11 @@ t_complex 	sum_complex(t_complex z1, t_complex z2);
 t_complex 	square_complex(t_complex z);
 t_complex 	abs_square_complex(t_complex z);
 
-int			isspace_check(const char a);
 long double	ft_atod(char *s);
 int			ft_sign(char *s);
 char 		*before_dot_ch(char *s);
 char 		*after_dot_ch(char *s);
-char		*ft_to_lower_char(char *c);
+char		*lower_char(char *c);
 int			ft_atoi(const char *str);
 int			ft_atoui(const char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);

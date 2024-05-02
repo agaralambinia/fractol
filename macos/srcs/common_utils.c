@@ -50,7 +50,7 @@ void    pixel_draw(int x, int y, t_img *img, int color)
     *(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 
-void    change_color(t_fractal *fractal, int keysim) //TODO
+void    change_color(t_fractal *fractal, int keysim)
 {
     if (keysim == XK_a)
     {
