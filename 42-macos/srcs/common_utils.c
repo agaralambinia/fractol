@@ -61,9 +61,9 @@ void	pixel_draw(int x, int y, t_fractal *fractal, int color)
 		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
 			(y * fractal->img.line_len)] = color % 256;
 		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
-			(y * fractal->img.line_len + 1)] = ((color % 65536) / 256) - (color % 256);
+			(y * fractal->img.line_len + 1)] = ((color % 65536) / 256);
 		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
-			(y * fractal->img.line_len + 2)] = (color / 65536) - (color % 65536) - (color % 256);
+			(y * fractal->img.line_len + 2)] = (color / 65536);
 	}
 }
 
