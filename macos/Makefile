@@ -1,6 +1,7 @@
 NAME = fractol
 
-SRC = srcs/ft_common.c\
+SRC = srcs/ft_math.c\
+	  srcs/ft_string.c\
 	  srcs/fractol.c\
 	  srcs/common_utils.c\
 	  srcs/ft_atod.c\
@@ -13,9 +14,6 @@ SRC = srcs/ft_common.c\
 	  srcs/output.c
 
 OBJ = ${SRC:.c=.o}
-
-LIBFT_PATH	= ./incs/libft
-LIBFT_NAME	= libft.a
 
 MINILIBX_PATH	= ../../minilbx
 MINILIBX_NAME	= libmlx.a
@@ -31,25 +29,20 @@ CC = cc
 .c.o:
 	${CC} -Imlx -c $< -o ${<:.c=.o}
 
-all: ${LIBFT_PATH}/${LIBFT_NAME} ${MINILIBX_PATH}/${MINILIBX_NAME} ${DEPS} ${NAME}
+all: ${MINILIBX_PATH}/${MINILIBX_NAME} ${DEPS} ${NAME}
 
 ${NAME}: ${OBJ}
-	${CC} ${SRC} $(X11_FLAGS) -o $@ ${LIBFT_PATH}/${LIBFT_NAME} ${MINILIBX_PATH}/${MINILIBX_NAME}
-
-${LIBFT_PATH}/${LIBFT_NAME}:
-	make -C ${LIBFT_PATH}
+	${CC} ${SRC} $(X11_FLAGS) -o $@ ${MINILIBX_PATH}/${MINILIBX_NAME}
 
 ${MINILIBX_PATH}/${MINILIBX_NAME}:
 	make -C ${MINILIBX_PATH}
 
 clean:
 	rm -f ${OBJ}
-	cd $(LIBFT_PATH) && make clean
 	cd $(MINILIBX_PATH) && make clean
 
 fclean: clean
 	rm -f ${NAME}
-	cd $(LIBFT_PATH) && make fclean
 
 re: fclean all
 

@@ -5,6 +5,8 @@ void    ft_burning_ship(char **args)
     t_fractal   fractal;
     
     fractal.name = "burning_ship";
+    fractal.scale = ft_atoui(args[2]);
+    fractal.iterations = ft_atoui(args[3]);
     fractal_init(&fractal);
     bs_events_init(&fractal);
     data_init(&fractal);
@@ -18,10 +20,10 @@ void    bs_render(t_fractal *fractal)
     int y;
 
     y = 1;
-    while (y++ < SCALE)
+    while (y++ < fractal->scale)
     {
         x = 1;
-        while (x++ < SCALE)
+        while (x++ < fractal->scale)
             bs_pixel(x, y, fractal);
     }
     mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
@@ -35,8 +37,8 @@ void    bs_pixel(int x, int y, t_fractal *fractal)
     int color;
 
     i = 0;
-    z.x = (scale(x, -2, 2, SCALE) * fractal->zoom) + fractal->shift_x;
-    z.y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
+    z.x = (scale(x, -2, 2, fractal->scale) * fractal->zoom) + fractal->shift_x;
+    z.y = (scale(y, 2, -2, fractal->scale) * fractal->zoom) + fractal->shift_y;
     c.x = z.x;
     c.y = z.y;
     while (i < fractal->iterations)
@@ -44,11 +46,11 @@ void    bs_pixel(int x, int y, t_fractal *fractal)
         z = sum_complex(abs_square_complex(z), c);
         if ((z.x * z.x) + (z.y * z.y) > fractal->hipotenuse)
         {
-            color = scale(i, BLACK, WHITE, fractal->iterations);
+            color = scale(i, fractal->min_color, fractal->max_color, fractal->iterations);
             pixel_draw(x, y, &fractal->img, color);
             return ;
         }
         i++;
     }
-    pixel_draw(x, y, &fractal->img, NEON_ORANGE);
+    pixel_draw(x, y, &fractal->img, fractal->max_color);
 }

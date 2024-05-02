@@ -13,9 +13,3 @@ https://www.xquartz.org/
 
 - This version includes all 42 mandatory headers and is norminetted.
 - Uses mlx lib preinstalled on local PCs.
-
-
-//TBD
-- Ввод параметров с командной строки
-- Валидация параметров с командной строки
-- Смена цветов по кнопке

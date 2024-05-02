@@ -5,6 +5,8 @@ void    ft_julia(char **args)
     t_fractal   fractal;
     
     fractal.name = "julia";
+    fractal.scale = ft_atoui(args[4]);
+    fractal.iterations = ft_atoi(args[5]);
     fractal.julia_x = ft_atod(args[2]);
 	fractal.julia_y = ft_atod(args[3]);
     fractal_init(&fractal);
@@ -20,10 +22,10 @@ void    j_render(t_fractal *fractal)
     int y;
 
     y = 1;
-    while (y++ < SCALE)
+    while (y++ < fractal->scale)
     {
         x = 1;
-        while (x++ < SCALE)
+        while (x++ < fractal->scale)
             j_pixel(x, y, fractal);
     }
     mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
@@ -37,8 +39,8 @@ void    j_pixel(int x, int y, t_fractal *fractal)
     int color;
 
     i = 0;
-    z.x = (scale(x, -2, 2, SCALE) * fractal->zoom) + fractal->shift_x;
-    z.y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
+    z.x = (scale(x, -2, 2, fractal->scale) * fractal->zoom) + fractal->shift_x;
+    z.y = (scale(y, 2, -2, fractal->scale) * fractal->zoom) + fractal->shift_y;
     c.x = (fractal->julia_x);
     c.y = (fractal->julia_y);
     while (i < fractal->iterations)
@@ -46,11 +48,11 @@ void    j_pixel(int x, int y, t_fractal *fractal)
         z = sum_complex(square_complex(z), c);
         if ((z.x * z.x) + (z.y * z.y) > fractal->hipotenuse)
         {
-            color = scale(i, BLACK, WHITE, fractal->iterations);
+            color = scale(i, fractal->min_color, fractal->max_color, fractal->iterations);
             pixel_draw(x, y, &fractal->img, color);
             return ;
         }
         i++;
     }
-    pixel_draw(x, y, &fractal->img, WHITE);
+    pixel_draw(x, y, &fractal->img, fractal->max_color);
 }

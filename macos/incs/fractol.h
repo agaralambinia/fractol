@@ -8,25 +8,7 @@
 # include <limits.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "libft/libft.h"
 # include "../../../minilbx/mlx.h"
-
-
-#define SCALE 800 //TODO
-
-#define BLACK       0x000000
-#define WHITE       0xFFFFFF
-#define RED         0xFF0000
-#define GREEN       0x00FF00
-#define BLUE        0x0000FF
-#define MAGENTA_BURST   0xFF00FF
-#define LIME_SHOCK      0xCCFF00 
-#define NEON_ORANGE     0xFF6600
-#define PSYCHEDELIC_PURPLE 0x660066
-#define AQUA_DREAM      0x33CCCC
-#define HOT_PINK        0xFF66B2
-#define ELECTRIC_BLUE   0x0066FF
-#define LAVA_RED        0xFF3300
 
 typedef struct	s_complex
 {
@@ -57,6 +39,8 @@ typedef struct s_fractal
 	long double		julia_x;
 	long double		julia_y;
 	unsigned int	scale;
+	int				min_color;
+	int				max_color;
 }   t_fractal;
 
 void    	ft_mandelbrot(char **args);
@@ -87,6 +71,7 @@ void 		data_init(t_fractal *fractal);
 void    	fractal_init(t_fractal *fractal);
 int    		close_handle(t_fractal *fractal);
 void    	pixel_draw(int x, int y, t_img *img, int color);
+void		change_color(t_fractal *fractal, int keysim);
 
 long double	scale(long double unscaled, long double new_min, long double new_max, long double old_max);
 t_complex 	sum_complex(t_complex z1, t_complex z2);
@@ -98,6 +83,9 @@ long double	ft_atod(char *s);
 int			ft_sign(char *s);
 char 		*before_dot_ch(char *s);
 char 		*after_dot_ch(char *s);
-char		*ft_tolower_char(char *c);
-
+char		*ft_to_lower_char(char *c);
+int			ft_atoi(const char *str);
+int			ft_atoui(const char *str);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		ft_putstr_fd(char *s, int fd);
 #endif

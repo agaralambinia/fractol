@@ -23,6 +23,8 @@ int m_key_handle(int keysim, t_fractal *fractal)
         fractal->iterations -= 10;
     else if ((keysim == XK_space) && (fractal->iterations <= INT_MAX - 10))//XK_plus doesn't work
         fractal->iterations += 10;
+    else if (keysim == XK_a || keysim == XK_z || keysim == XK_s || keysim == XK_d || keysim == XK_p)
+        change_color(fractal, keysim);
     m_render(fractal);
     return (0);
 }

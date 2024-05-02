@@ -24,6 +24,8 @@ int j_key_handle(int keysim, t_fractal *fractal)
         fractal->iterations -= 10;
     else if ((keysim == XK_space) && (fractal->iterations <= INT_MAX - 10))//XK_plus doesn't work
         fractal->iterations += 10;
+    else if (keysim == XK_a || keysim == XK_z || keysim == XK_s || keysim == XK_d || keysim == XK_p)
+        change_color(fractal, keysim);
     j_render(fractal);
     return (0);
 }
@@ -44,8 +46,8 @@ int j_mouse_handle(int button, int x, int y, t_fractal *fractal)
 
 int    j_mouse_move_handle(int x, int y, t_fractal *fractal)
 { 
-    fractal->julia_x = (scale(x, -2, +2, SCALE) * fractal->zoom) + fractal->shift_x;
-    fractal->julia_y = (scale(y, 2, -2, SCALE) * fractal->zoom) + fractal->shift_y;
+    fractal->julia_x = (scale(x, -2, +2, fractal->scale) * fractal->zoom) + fractal->shift_x;
+    fractal->julia_y = (scale(y, 2, -2, fractal->scale) * fractal->zoom) + fractal->shift_y;
     j_render(fractal);
     return (0);
 }
