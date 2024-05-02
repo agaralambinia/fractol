@@ -54,12 +54,17 @@ void	fractal_init(t_fractal *fractal)
 		&fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
 }
 
-void	pixel_draw(int x, int y, t_img *img, int color)
+void	pixel_draw(int x, int y, t_fractal *fractal, int color)
 {
-	char	*dst;
-
-	dst = img->pixels_ptr + (y * img->line_len + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	if (x >= 0 && y >= 0 && x < (int)fractal->scale && y < (int)fractal->scale)
+	{
+		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
+			(y * fractal->img.line_len)] = color % 256;
+		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
+			(y * fractal->img.line_len + 1)] = ((color % 65536) / 256) - (color % 256);
+		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
+			(y * fractal->img.line_len + 2)] = (color / 65536) - (color % 65536) - (color % 256);
+	}
 }
 
 void	change_color(t_fractal *fractal, int keysim)

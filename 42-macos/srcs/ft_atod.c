@@ -50,9 +50,14 @@ long double	ft_atod(char *s)
 	before_dot = 0;
 	after_dot = 0;
 	i = 1;
+	sign = -1;
 	while ((*s >= 9 && *s <= 13) || (*s == 32))
 		s++;
-	sign = ft_sign(s);
+	while (*s == '+' || *s == '-')
+	{
+		if (*s++ == '-')
+			sign = -1 * sign;
+	}
 	while (*s != '.' && *s)
 	{
 		before_dot_ch(s);

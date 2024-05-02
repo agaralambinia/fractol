@@ -63,10 +63,10 @@ void	j_pixel(int x, int y, t_fractal *fractal)
 		{
 			color = scale(i, fractal->min_color, \
 				fractal->max_color, fractal->iterations);
-			pixel_draw(x, y, &fractal->img, color);
+			pixel_draw(x, y, fractal, color);
 			return ;
 		}
 		i++;
 	}
-	pixel_draw(x, y, &fractal->img, fractal->max_color);
+	pixel_draw(x, y, fractal, fractal->max_color);
 }

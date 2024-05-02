@@ -17,7 +17,10 @@
 # include <unistd.h>
 # include <math.h>
 # include <limits.h>
-# include <mlx.h>
+
+//TODO change at school
+# include "../../../minilbx_mac/mlx.h"
+//# include <mlx.h>
 # include <stdio.h>
 
 typedef struct s_complex
@@ -49,8 +52,8 @@ typedef struct s_fractal
 	long double		julia_x;
 	long double		julia_y;
 	unsigned int	scale;
-	int				min_color;
-	int				max_color;
+	unsigned int	min_color;
+	unsigned int	max_color;
 }	t_fractal;
 
 void		ft_mandelbrot(char **args);
@@ -76,7 +79,7 @@ void		ft_exit_help(void);
 void		data_init(t_fractal *fractal);
 void		fractal_init(t_fractal *fractal);
 int			close_handle(t_fractal *fractal);
-void		pixel_draw(int x, int y, t_img *img, int color);
+void		pixel_draw(int x, int y, t_fractal *fractal, int color);
 void		change_color(t_fractal *fractal, int keysim);
 long double	scale(long double unscaled, long double new_min, \
 	long double new_max, long double old_max);

@@ -35,7 +35,6 @@ The input is not correct. Provide the program with the following arguments:\n\
 Hotkeys:\n\
   * Left arrow - go left\n  * Right arrow - go right\n  * Up arrow - go up\n  * Down arrow - go up\n\
   * ESC - close fractal\n  * '+' - +10 iterations of point count\n  * '-' -10 iterations\n\
-  * Move mouse (works for Julia) - change C number\n\
   * Scroll mouse - zoom in and zoom out\n\
   * 'z' - go to color change mode\n  * 'a' - return to preset color mode\n\
   * 's' - decrease color\n  * 'd' - increase color\n", 2);

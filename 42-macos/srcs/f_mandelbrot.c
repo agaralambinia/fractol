@@ -23,7 +23,7 @@ void	ft_mandelbrot(char **args)
 	m_events_init(&fractal);
 	data_init(&fractal);
 	m_render(&fractal);
-	//mlx_loop(fractal.mlx_connection);
+	mlx_loop(fractal.mlx_connection);
 }
 
 void	m_render(t_fractal *fractal)
@@ -31,14 +31,14 @@ void	m_render(t_fractal *fractal)
 	unsigned int	x;
 	unsigned int	y;
 
-	y = 1;
+	y = 0;
 	while (y++ < fractal->scale)
 	{
-		x = 1;
+		x = 0;
 		while (x++ < fractal->scale)
 			m_pixel(x, y, fractal);
 	}
-	//mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
 }
 
 void	m_pixel(int x, int y, t_fractal *fractal)
@@ -59,10 +59,10 @@ void	m_pixel(int x, int y, t_fractal *fractal)
 		if ((z.x * z.x) + (z.y * z.y) > fractal->hipotenuse)
 		{
 			color = scale(i, fractal->min_color, fractal->max_color, fractal->iterations);
-			pixel_draw(100, 100, &fractal->img, color);
+			pixel_draw(x, y, fractal, color);
 			return ;
 		}
 		i++;
 	}
-	pixel_draw(x, y, &fractal->img, fractal->max_color);
+	pixel_draw(x, y, fractal, fractal->max_color);
 }
