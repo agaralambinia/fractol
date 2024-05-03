@@ -18,9 +18,7 @@
 # include <math.h>
 # include <limits.h>
 
-//TODO change at school
-# include "../../../minilbx_mac/mlx.h"
-//# include <mlx.h>
+# include <mlx.h>
 # include <stdio.h>
 
 typedef struct s_complex
@@ -31,7 +29,7 @@ typedef struct s_complex
 
 typedef struct s_img
 {
-	void	*img_ptr;
+	void	*img_p;
 	char	*pixels_ptr;
 	int		bpp;
 	int		endian;
@@ -41,11 +39,11 @@ typedef struct s_img
 typedef struct s_fractal
 {
 	char			*name;
-	void			*mlx_connection;
-	void			*mlx_window;
+	void			*mlx_con;
+	void			*mlx_w;
 	t_img			img;
 	long double		hipotenuse;
-	int				iterations;
+	int				iter;
 	long double		shift_x;
 	long double		shift_y;
 	long double		zoom;
@@ -87,6 +85,7 @@ t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
 t_complex	abs_square_complex(t_complex z);
 long double	ft_atod(char *s);
+long double	ft_atod_val(int sign, char *s);
 int			ft_sign(char *s);
 char		*before_dot_ch(char *s);
 char		*after_dot_ch(char *s);
@@ -95,4 +94,5 @@ int			ft_atoi(const char *str);
 int			ft_atoui(const char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_putstr_fd(char *s, int fd);
+
 #endif

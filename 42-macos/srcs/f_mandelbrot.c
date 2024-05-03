@@ -18,30 +18,30 @@ void	ft_mandelbrot(char **args)
 
 	fractal.name = "mandelbrot";
 	fractal.scale = ft_atoui(args[2]);
-	fractal.iterations = ft_atoi(args[3]);
+	fractal.iter = ft_atoi(args[3]);
 	fractal_init(&fractal);
 	m_events_init(&fractal);
 	data_init(&fractal);
 	m_render(&fractal);
-	mlx_loop(fractal.mlx_connection);
+	mlx_loop(fractal.mlx_con);
 }
 
-void	m_render(t_fractal *fractal)
+void	m_render(t_fractal *f)
 {
 	unsigned int	x;
 	unsigned int	y;
 
 	y = 0;
-	while (y++ < fractal->scale)
+	while (y++ < f->scale)
 	{
 		x = 0;
-		while (x++ < fractal->scale)
-			m_pixel(x, y, fractal);
+		while (x++ < f->scale)
+			m_pixel(x, y, f);
 	}
-	mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(f->mlx_con, f->mlx_w, f->img.img_p, 0, 0);
 }
 
-void	m_pixel(int x, int y, t_fractal *fractal)
+void	m_pixel(int x, int y, t_fractal *f)
 {
 	t_complex	z;
 	t_complex	c;
@@ -49,20 +49,20 @@ void	m_pixel(int x, int y, t_fractal *fractal)
 	int			color;
 
 	i = 0;
-	z.x = (scale(x, -2, 2, fractal->scale) * fractal->zoom) + fractal->shift_x;
-	z.y = (scale(y, 2, -2, fractal->scale) * fractal->zoom) + fractal->shift_y;
+	z.x = (scale(x, -2, 2, f->scale) * f->zoom) + f->shift_x;
+	z.y = (scale(y, 2, -2, f->scale) * f->zoom) + f->shift_y;
 	c.x = z.x;
 	c.y = z.y;
-	while (i < fractal->iterations)
+	while (i < f->iter)
 	{
 		z = sum_complex(square_complex(z), c);
-		if ((z.x * z.x) + (z.y * z.y) > fractal->hipotenuse)
+		if ((z.x * z.x) + (z.y * z.y) > f->hipotenuse)
 		{
-			color = scale(i, fractal->min_color, fractal->max_color, fractal->iterations);
-			pixel_draw(x, y, fractal, color);
+			color = scale(i, f->min_color, f->max_color, f->iter);
+			pixel_draw(x, y, f, color);
 			return ;
 		}
 		i++;
 	}
-	pixel_draw(x, y, fractal, fractal->max_color);
+	pixel_draw(x, y, f, f->max_color);
 }

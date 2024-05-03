@@ -9,8 +9,7 @@ char *before_dot_ch(char *s)
 
 char *after_dot_ch(char *s)
 {
-    before_dot_ch(s);
-    if ((*s) == '.')
+    if ((((*s) > '9') || ((*s) < '0')))
         ft_exit_error();
     return (s);
 }

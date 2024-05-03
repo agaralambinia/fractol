@@ -21,43 +21,20 @@ char	*before_dot_ch(char *s)
 
 char	*after_dot_ch(char *s)
 {
-	before_dot_ch(s);
-	if ((*s) == '.')
+	if ((((*s) > '9') || ((*s) < '0')))
 		ft_exit_error();
 	return (s);
 }
 
-int	ft_sign(char *s)
+long double	ft_atod_val(int sign, char *s)
 {
-	int	sign;
-
-	sign = 1;
-	while (*s == '+' || *s == '-')
-	{
-		if (*s++ == '-')
-			sign = -1 * sign;
-	}
-	return (sign);
-}
-
-long double	ft_atod(char *s)
-{
+	long double	i;
 	long		before_dot;
 	long double	after_dot;
-	long double	i;
-	int			sign;
 
+	i = 1.0;
 	before_dot = 0;
 	after_dot = 0;
-	i = 1;
-	sign = -1;
-	while ((*s >= 9 && *s <= 13) || (*s == 32))
-		s++;
-	while (*s == '+' || *s == '-')
-	{
-		if (*s++ == '-')
-			sign = -1 * sign;
-	}
 	while (*s != '.' && *s)
 	{
 		before_dot_ch(s);
@@ -72,4 +49,19 @@ long double	ft_atod(char *s)
 		after_dot = after_dot + ((*s++ - 48) * i);
 	}
 	return ((before_dot + after_dot) * sign);
+}
+
+long double	ft_atod(char *s)
+{
+	int			sign;
+
+	sign = 1;
+	while ((*s >= 9 && *s <= 13) || (*s == 32))
+		s++;
+	while (*s == '+' || *s == '-')
+	{
+		if (*s++ == '-')
+			sign = -1 * sign;
+	}
+	return (ft_atod_val(sign, s));
 }

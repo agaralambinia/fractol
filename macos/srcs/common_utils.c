@@ -19,27 +19,27 @@ void data_init(t_fractal *fractal)
     fractal->max_color = 16777215;
 }
 
-void    fractal_init(t_fractal *fractal)
+void    fractal_init(t_fractal *f)
 {
-    fractal->mlx_connection = mlx_init();
-    if (fractal->mlx_connection == NULL)
+    f->mlx_connection = mlx_init();
+    if (f->mlx_connection == NULL)
         ft_exit_error();
-    fractal->mlx_window = mlx_new_window(fractal->mlx_connection, fractal->scale, fractal->scale, fractal->name);
-    if (fractal->mlx_window == NULL)
+    f->mlx_window = mlx_new_window(f->mlx_connection, f->scale, f->scale, f->name);
+    if (f->mlx_window == NULL)
     {
-        mlx_destroy_display(fractal->mlx_connection);
-        free(fractal->mlx_connection);
+        mlx_destroy_display(f->mlx_connection);
+        free(f->mlx_connection);
         ft_exit_error();
     }
-    fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, fractal->scale, fractal->scale);
-    if (fractal->img.img_ptr == NULL)
+    f->img.img_ptr = mlx_new_image(f->mlx_connection, f->scale, f->scale);
+    if (f->img.img_ptr == NULL)
     {
-        mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-        mlx_destroy_display(fractal->mlx_connection);
-        free(fractal->mlx_connection);
+        mlx_destroy_window(f->mlx_connection, f->mlx_window);
+        mlx_destroy_display(f->mlx_connection);
+        free(f->mlx_connection);
         ft_exit_error();
     }
-    fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr, &fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
+    f->img.pixels_ptr = mlx_get_data_addr(f->img.img_ptr, &f->img.bpp, &f->img.line_len, &f->img.endian);
 }
 
 void    pixel_draw(int x, int y, t_img *img, int color)

@@ -14,9 +14,9 @@
 
 int	close_handle(t_fractal *fractal)
 {
-	mlx_destroy_image(fractal->mlx_connection, fractal->img.img_ptr);
-	mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-	free(fractal->mlx_connection);
+	mlx_destroy_image(fractal->mlx_con, fractal->img.img_p);
+	mlx_destroy_window(fractal->mlx_con, fractal->mlx_w);
+	free(fractal->mlx_con);
 	exit(EXIT_SUCCESS);
 }
 
@@ -30,61 +30,59 @@ void	data_init(t_fractal *fractal)
 	fractal->max_color = 16777215;
 }
 
-void	fractal_init(t_fractal *fractal)
+void	fractal_init(t_fractal *f)
 {
-	fractal->mlx_connection = mlx_init();
-	if (fractal->mlx_connection == NULL)
+	f->mlx_con = mlx_init();
+	if (f->mlx_con == NULL)
 		ft_exit_error();
-	fractal->mlx_window = mlx_new_window(fractal->mlx_connection, \
-		fractal->scale, fractal->scale, fractal->name);
-	if (fractal->mlx_window == NULL)
+	f->mlx_w = mlx_new_window(f->mlx_con, f->scale, f->scale, f->name);
+	if (f->mlx_w == NULL)
 	{
-		free(fractal->mlx_connection);
+		free(f->mlx_con);
 		ft_exit_error();
 	}
-	fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, \
-		fractal->scale, fractal->scale);
-	if (fractal->img.img_ptr == NULL)
+	f->img.img_p = mlx_new_image(f->mlx_con, f->scale, f->scale);
+	if (f->img.img_p == NULL)
 	{
-		mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-		free(fractal->mlx_connection);
+		mlx_destroy_window(f->mlx_con, f->mlx_w);
+		free(f->mlx_con);
 		ft_exit_error();
 	}
-	fractal->img.pixels_ptr = mlx_get_data_addr(fractal->img.img_ptr, \
-		&fractal->img.bpp, &fractal->img.line_len, &fractal->img.endian);
+	f->img.pixels_ptr = mlx_get_data_addr(f->img.img_p, \
+		&f->img.bpp, &f->img.line_len, &f->img.endian);
 }
 
-void	pixel_draw(int x, int y, t_fractal *fractal, int color)
+void	pixel_draw(int x, int y, t_fractal *f, int color)
 {
-	if (x >= 0 && y >= 0 && x < (int)fractal->scale && y < (int)fractal->scale)
+	if (x >= 0 && y >= 0 && x < (int)f->scale && y < (int)f->scale)
 	{
-		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
-			(y * fractal->img.line_len)] = color % 256;
-		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
-			(y * fractal->img.line_len + 1)] = ((color % 65536) / 256);
-		fractal->img.pixels_ptr[(x * fractal->img.bpp >> 3) + \
-			(y * fractal->img.line_len + 2)] = (color / 65536);
+		f->img.pixels_ptr[(x * f->img.bpp >> 3) \
+			+ (y * f->img.line_len)] = color % 256;
+		f->img.pixels_ptr[(x * f->img.bpp >> 3) \
+			+ (y * f->img.line_len + 1)] = ((color % 65536) / 256);
+		f->img.pixels_ptr[(x * f->img.bpp >> 3) \
+			+ (y * f->img.line_len + 2)] = (color / 65536);
 	}
 }
 
-void	change_color(t_fractal *fractal, int keysim)
+void	change_color(t_fractal *fractal, int k)
 {
-	if (keysim == 0)
+	if (k == 38)
 	{
 		fractal->min_color = 0;
 		fractal->max_color = 16777215;
 	}
-	else if (keysim == 6)
+	else if (k == 4)
 	{
 		fractal->min_color = 3394764;
 		fractal->max_color = 13434624;
 	}
-	else if ((keysim == 1) && (fractal->min_color >= 10000))
+	else if ((k == 40) && (fractal->min_color >= 10000))
 	{
 		fractal->min_color -= 10000;
 		fractal->max_color -= 10000;
 	}
-	else if ((keysim == 2) && (fractal->max_color <= 16767215))
+	else if ((k == 37) && (fractal->max_color <= 16767215))
 	{
 		fractal->min_color += 10000;
 		fractal->max_color += 10000;

@@ -14,29 +14,28 @@
 
 void	j_events_init(t_fractal *fractal)
 {
-	mlx_key_hook(fractal->mlx_window, j_key_handle, fractal);
-	mlx_mouse_hook(fractal->mlx_window, j_mouse_handle, fractal);
+	mlx_key_hook(fractal->mlx_w, j_key_handle, fractal);
+	mlx_mouse_hook(fractal->mlx_w, j_mouse_handle, fractal);
 }
 
-int	j_key_handle(int keysim, t_fractal *fractal)
+int	j_key_handle(int k, t_fractal *fractal)
 {
-	if (keysim == 37)
+	if (k == 0)
 		fractal->shift_x -= (0.5 * fractal->zoom);
-	else if (keysim == 39)
+	else if (k == 2)
 		fractal->shift_x += (0.5 * fractal->zoom);
-	else if (keysim == 38)
+	else if (k == 13)
 		fractal->shift_y += (0.5 * fractal->zoom);
-	else if (keysim == 40)
+	else if (k == 1)
 		fractal->shift_y -= (0.5 * fractal->zoom);
-	else if (keysim == 53)
+	else if (k == 53)
 		close_handle(fractal);
-	else if ((keysim == 27) && (fractal->iterations >= 10))
-		fractal->iterations -= 10;
-	else if ((keysim == 49) && \
-		(fractal->iterations <= INT_MAX - 10))
-		fractal->iterations += 10;
-	else if (keysim == 0 || keysim == 6 || keysim == 1 || keysim == 2 || keysim == 35)
-		change_color(fractal, keysim);
+	else if ((k == 31) && (fractal->iter >= 10))
+		fractal->iter -= 10;
+	else if ((k == 35) && (fractal->iter <= INT_MAX - 10))
+		fractal->iter += 10;
+	else
+		change_color(fractal, k);
 	j_render(fractal);
 	return (0);
 }

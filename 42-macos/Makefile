@@ -17,28 +17,19 @@ OBJ = ${SRC:.c=.o}
 
 DEPS = incs/fractol.h
 
-# TODO delete at school
-MINILIBX_PATH	= ../../minilbx_mac
-MINILIBX_NAME	= libmlx.a
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 .c.o:
 	${CC} ${CFLAGS} -Imlx -c $< -o ${<:.c=.o}
 
-all: ${MINILIBX_PATH}/${MINILIBX_NAME} ${DEPS} ${NAME}
+all: ${DEPS} ${NAME}
 
 ${NAME}: ${OBJ}
-	${CC} -fsanitize=address ${SRC} -o $@ ${MINILIBX_PATH}/${MINILIBX_NAME} -framework OpenGL -framework AppKit
-#${CC} -fsanitize=address -I /usr/local/include ${SRC} -o $@ -L /usr/local/lib/ -lmlx -framework OpenGl -framework AppKit
-
-${MINILIBX_PATH}/${MINILIBX_NAME}:
-	make -C ${MINILIBX_PATH}
+	${CC} -I /usr/local/include ${SRC} -o $@ -L /usr/local/lib/ -lmlx -framework OpenGl -framework AppKit
 
 clean:
 	rm -f ${OBJ}
-	cd $(MINILIBX_PATH) && make clean
 
 fclean: clean
 	rm -f ${NAME}

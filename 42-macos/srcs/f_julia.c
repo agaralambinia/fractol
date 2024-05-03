@@ -18,33 +18,33 @@ void	ft_julia(char **args)
 
 	fractal.name = "julia";
 	fractal.scale = ft_atoui(args[4]);
-	fractal.iterations = ft_atoi(args[5]);
+	fractal.iter = ft_atoi(args[5]);
 	fractal.julia_x = ft_atod(args[2]);
 	fractal.julia_y = ft_atod(args[3]);
+	printf("%Lf, %Lf\n", fractal.julia_x, fractal.julia_y);
 	fractal_init(&fractal);
 	j_events_init(&fractal);
 	data_init(&fractal);
 	j_render(&fractal);
-	mlx_loop(fractal.mlx_connection);
+	mlx_loop(fractal.mlx_con);
 }
 
-void	j_render(t_fractal *fractal)
+void	j_render(t_fractal *f)
 {
 	unsigned int	x;
 	unsigned int	y;
 
 	y = 1;
-	while (y++ < fractal->scale)
+	while (y++ < f->scale)
 	{
 		x = 1;
-		while (x++ < fractal->scale)
-			j_pixel(x, y, fractal);
+		while (x++ < f->scale)
+			j_pixel(x, y, f);
 	}
-	mlx_put_image_to_window(fractal->mlx_connection, \
-		fractal->mlx_window, fractal->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(f->mlx_con, f->mlx_w, f->img.img_p, 0, 0);
 }
 
-void	j_pixel(int x, int y, t_fractal *fractal)
+void	j_pixel(int x, int y, t_fractal *f)
 {
 	t_complex	z;
 	t_complex	c;
@@ -52,21 +52,20 @@ void	j_pixel(int x, int y, t_fractal *fractal)
 	int			color;
 
 	i = 0;
-	z.x = (scale(x, -2, 2, fractal->scale) * fractal->zoom) + fractal->shift_x;
-	z.y = (scale(y, 2, -2, fractal->scale) * fractal->zoom) + fractal->shift_y;
-	c.x = (fractal->julia_x);
-	c.y = (fractal->julia_y);
-	while (i < fractal->iterations)
+	z.x = (scale(x, -2, 2, f->scale) * f->zoom) + f->shift_x;
+	z.y = (scale(y, 2, -2, f->scale) * f->zoom) + f->shift_y;
+	c.x = f->julia_x;
+	c.y = f->julia_y;
+	while (i < f->iter)
 	{
 		z = sum_complex(square_complex(z), c);
-		if ((z.x * z.x) + (z.y * z.y) > fractal->hipotenuse)
+		if ((z.x * z.x) + (z.y * z.y) > f->hipotenuse)
 		{
-			color = scale(i, fractal->min_color, \
-				fractal->max_color, fractal->iterations);
-			pixel_draw(x, y, fractal, color);
+			color = scale(i, f->min_color, f->max_color, f->iter);
+			pixel_draw(x, y, f, color);
 			return ;
 		}
 		i++;
 	}
-	pixel_draw(x, y, fractal, fractal->max_color);
+	pixel_draw(x, y, f, f->max_color);
 }

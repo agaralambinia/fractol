@@ -30,13 +30,13 @@ The input is not correct. Provide the program with the following arguments:\n\
   but the fractal is beautiful when real and imaginary are between -1 and 1.\n\
   Some recommended values: 0.28 and 0.0113; -0.549653 and 0.003; -0.549653 and 0.003\n\
   * Size of display. Defined within unsigned int, but smth between 300 and 1000 is perfect\n\
-  * Number of iterations for counting a point. Defined within int, but smth between 200 and 800 is perfect\n\
+  * Number of iter for counting a point. Defined within int, but smth between 200 and 800 is perfect\n\
   You will be able to change the value when the program runs.\n\n\
 Hotkeys:\n\
-  * Left arrow - go left\n  * Right arrow - go right\n  * Up arrow - go up\n  * Down arrow - go up\n\
-  * ESC - close fractal\n  * '+' - +10 iterations of point count\n  * '-' -10 iterations\n\
+  * wasd - to move in fractal\n\
+  * ESC - close fractal\n  * p - +10 iter of point count\n  * o -10 iter\n\
   * Scroll mouse - zoom in and zoom out\n\
-  * 'z' - go to color change mode\n  * 'a' - return to preset color mode\n\
-  * 's' - decrease color\n  * 'd' - increase color\n", 2);
+  * 'h' - go to color change mode\n  * 'j' - return to preset color mode\n\
+  * 'k' - decrease color\n  * 'l' - increase color\n", 2);
 	exit(EXIT_FAILURE);
 }
