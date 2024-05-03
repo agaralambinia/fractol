@@ -16,6 +16,7 @@ void	bs_events_init(t_fractal *fractal)
 {
 	mlx_key_hook(fractal->mlx_w, bs_key_handle, fractal);
 	mlx_mouse_hook(fractal->mlx_w, bs_mouse_handle, fractal);
+	mlx_hook(fractal->mlx_w, 17, 0, close_handle, fractal);
 }
 
 int	bs_key_handle(int k, t_fractal *fractal)
